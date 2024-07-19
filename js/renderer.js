@@ -54,7 +54,7 @@ loader.load(
   //"https://cdn.glitch.com/29e07830-2317-4b15-a044-135e73c7f840%2FAshtra.vrm?v=1630342336981",
 //Azureストレージに置く場合、ストレージ側でクロスオリジン共有許可設定が必要（CORS)
 //"https://tsukagoshitestsa.blob.core.windows.net/test/Tsukagoshi-test_Zonko_VRM_221128.vrm",
-  "https://kazumatsukagoshi.github.io/kalidolit/Zonko_VRM_221128.vrm",
+  "https://kazumatsukagoshi.github.io/kalidokit/Zonko_VRM_221128.vrm",
   gltf => {
     THREE.VRMUtils.removeUnnecessaryJoints(gltf.scene);
 
