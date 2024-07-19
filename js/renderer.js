@@ -1,5 +1,3 @@
-import 'css/index.css'
-
 //Import Helper Functions from Kalidokit
 const remap = Kalidokit.Utils.remap;
 const clamp = Kalidokit.Utils.clamp;
