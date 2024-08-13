@@ -147,7 +147,7 @@ const loader = new THREE.GLTFLoader();
 loader.crossOrigin = "anonymous";
 // Import model from URL, add your own model here
 loader.load(
-"https://kazumatsukagoshi.github.io/kalidokit/Zonko_VRM_221128.vrm"
+"https://kazumatsukagoshi.github.io/kalidokit/Zonko_VRM_221128.vrm",
   gltf => {
     THREE.VRMUtils.removeUnnecessaryJoints(gltf.scene);
 
