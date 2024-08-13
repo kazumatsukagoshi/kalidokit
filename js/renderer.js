@@ -358,39 +358,40 @@ const animateVRM = (vrm, results) => {
   }
 };
 
-
-
-
-
-
-
 //撮影
-//const picture = document.querySelector("#picture")
+const picture = document.querySelector("#picture")
 /**
    * シャッターボタン
-   */
-/*document.querySelector("#shutter").addEventListener("click", () => {
-  const ctx = picture.getContext("2d")
-  const view = document.querySelector("#view")
-  const canvasctx = view.getContext("2d")
+ */
+document.querySelector("#save").addEventListener("click", () => {
+  const ctx = picture.getContext('2d')
+  picture.width = videoElement.videoWidth
+  picture.height = videoElement.videoHeight
 
-  picture.setSize(view.width, view.height)
 
     // 演出的な目的で一度映像を止めてSEを再生する
-    video.pause()  // 映像を停止
+    videoElement.pause()  // 映像を停止
     //se.play()      // シャッター音
     setTimeout( () => {
-      video.play()    // 0.5秒後にカメラ再開
+      videoElement.play()    // 0.5秒後にカメラ再開
     }, 500);
 
     // canvasに画像を貼り付ける
-    ctx.drawImage(canvasctx, 0, 0, view.width, view.height);
-  })
+  ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+  ctx.drawImage(guideCanvas, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+  //ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
 
- // document.getElementById('save').addEventListener('click', function(){
- // this.href = document.getElementById('picture').toDataURL()
-//　})
-*/
+  const base64Image = document.getElementById('picture').toDataURL()
+  resizeImage(base64Image, (base64) => {
+    const object = {
+      // "url": dataUrl
+      'url': base64Image,
+    }
+    const result = prompt(JSON.stringify(object))
+      })
+  return false
+})
+
 /**
  * 画像のリサイズ
  * @param  {string}   base64   [base64]
@@ -441,27 +442,3 @@ function base64toBlob(base64) {
   return blob;
 }
 
-document.getElementById('save').addEventListener('click', function() {
-  //var base64Image = document.getElementById('picture').toDataURL()
-  var base64Image = renderer.domElement.toDataURL()
-  resizeImage(base64Image, function(base64) {
-    var blob = base64toBlob(base64Image)
-    var url = (window.URL || window.webkitURL);
-    var dataUrl = url.createObjectURL(blob)
- 
-    //    var a = document.createElement('a');
-    //    a.download = "download.jpg"
-    //    a.href = dataUrl
- 
-        //var evt = document.createEvent('MouseEvent')
-    //    var evt = new Event("click", { bubbles: true, cancelable: false });
-        //evt.initEvent("click", true, false)
-    //    a.dispatchEvent( evt )
-    var object = {
-        //"url": dataUrl
-        "url": base64Image
-    }
-    var result = prompt(JSON.stringify(object))
-  })
-  return false
-})
