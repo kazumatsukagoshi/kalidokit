@@ -1,3 +1,95 @@
+/* SETUP MEDIAPIPE HOLISTIC INSTANCE */
+let videoElement = document.querySelector(".input_video"),
+    guideCanvas = document.querySelector("canvas.guides");
+
+// Use `Mediapipe` utils to get camera - lower resolution = higher fps
+const camera = new Camera(videoElement, {
+  onFrame: async () => {
+    await holistic.send({image: videoElement});
+  },
+  width: 1106,
+  height: 820
+  // width: window.width,
+  // height: window.height
+});
+camera.start();
+
+
+const onResults = (results) => {
+  // Draw landmark guides Mediapipeの線の表示
+  drawResults(results)
+  // Animate model
+  animateVRM(currentVrm, results)
+}
+
+const holistic = new Holistic({
+    locateFile: file => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`;
+    }
+  });
+
+holistic.setOptions({
+    modelComplexity: 1,
+    smoothLandmarks: true,
+    minDetectionConfidence: 0.7,
+    minTrackingConfidence: 0.7,
+    refineFaceLandmarks: true,
+    
+});
+
+// Pass holistic a callback function
+holistic.onResults(onResults);
+
+const drawResults = (results) => {
+  guideCanvas.width = videoElement.videoWidth;
+guideCanvas.height = videoElement.videoHeight;
+
+let canvasCtx = guideCanvas.getContext('2d');
+  canvasCtx.save();
+  canvasCtx.clearRect(0, 0, guideCanvas.width, guideCanvas.height);
+  // Use `Mediapipe` drawing functions
+  /*
+  drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
+      color: "#00cff7",
+      lineWidth: 4
+    });
+    drawLandmarks(canvasCtx, results.poseLandmarks, {
+      color: "#ff0364",
+      lineWidth: 2
+    });
+    drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION, {
+      color: "#C0C0C070",
+      lineWidth: 1
+    });
+    if(results.faceLandmarks && results.faceLandmarks.length === 478){
+      //draw pupils
+      drawLandmarks(canvasCtx, [results.faceLandmarks[468],results.faceLandmarks[468+5]], {
+        color: "#ffe603",
+        lineWidth: 2
+      });
+    }
+    
+    drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, {
+      color: "#eb1064",
+      lineWidth: 5
+    });
+    drawLandmarks(canvasCtx, results.leftHandLandmarks, {
+      color: "#00cff7",
+      lineWidth: 2
+    });
+    drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, {
+      color: "#22c3e3",
+      lineWidth: 5
+    });
+    drawLandmarks(canvasCtx, results.rightHandLandmarks, {
+      color: "#ff0364",
+      lineWidth: 2
+    });
+    */
+    canvasCtx.drawImage(renderer.domElement, 0, 0)
+}
+
+
 //Import Helper Functions from Kalidokit
 const remap = Kalidokit.Utils.remap;
 const clamp = Kalidokit.Utils.clamp;
@@ -10,7 +102,11 @@ let currentVrm;
 const renderer = new THREE.WebGLRenderer({alpha:true, preserveDrawingBuffer: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
-document.body.appendChild(renderer.domElement);
+//以下変更
+//document.body.appendChild(renderer.domElement);
+
+//const view = document.getElementById("preview");
+//view.appendChild(renderer.domElement, 0, 0);
 
 // camera
 const orbitCamera = new THREE.PerspectiveCamera(35,window.innerWidth / window.innerHeight,0.1,1000);
@@ -53,8 +149,7 @@ loader.crossOrigin = "anonymous";
 loader.load(
   //"https://cdn.glitch.com/29e07830-2317-4b15-a044-135e73c7f840%2FAshtra.vrm?v=1630342336981",
 //Azureストレージに置く場合、ストレージ側でクロスオリジン共有許可設定が必要（CORS)
-//"https://tsukagoshitestsa.blob.core.windows.net/test/Tsukagoshi-test_Zonko_VRM_221128.vrm",
-  "https://kazumatsukagoshi.github.io/kalidokit/Zonko_VRM_221128.vrm",
+"https://tsukagoshitestsa.blob.core.windows.net/test/Tsukagoshi-test_Zonko_VRM_221128.vrm",
   gltf => {
     THREE.VRMUtils.removeUnnecessaryJoints(gltf.scene);
 
@@ -144,7 +239,7 @@ const rigFace = (riggedFace) => {
     //interpolate pupil and keep a copy of the value
     let lookTarget =
       new THREE.Euler(
-        lerp(oldLookTarget.x , riggedFace.pupil.y, .4),
+        lerp(oldLookTarget.x, riggedFace.pupil.y, .4),
         lerp(oldLookTarget.y, riggedFace.pupil.x, .4),
         0,
         "XYZ"
@@ -262,91 +357,10 @@ const animateVRM = (vrm, results) => {
   }
 };
 
-/* SETUP MEDIAPIPE HOLISTIC INSTANCE */
-let videoElement = document.querySelector(".input_video"),
-    guideCanvas = document.querySelector("canvas.guides");
-
-const onResults = (results) => {
-  // Draw landmark guides
-  drawResults(results)
-  // Animate model
-  animateVRM(currentVrm, results);
-}
-
-const holistic = new Holistic({
-    locateFile: file => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`;
-    }
-  });
-
-  holistic.setOptions({
-    modelComplexity: 1,
-    smoothLandmarks: true,
-    minDetectionConfidence: 0.7,
-    minTrackingConfidence: 0.7,
-    refineFaceLandmarks: true,
-    
-  });
-  // Pass holistic a callback function
-  holistic.onResults(onResults);
-
-const drawResults = (results) => {
-  guideCanvas.width = videoElement.videoWidth;
-  guideCanvas.height = videoElement.videoHeight;
-  let canvasCtx = guideCanvas.getContext('2d');
-  canvasCtx.save();
-  canvasCtx.clearRect(0, 0, guideCanvas.width, guideCanvas.height);
-  // Use `Mediapipe` drawing functions
-  drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
-      color: "#00cff7",
-      lineWidth: 4
-    });
-    drawLandmarks(canvasCtx, results.poseLandmarks, {
-      color: "#ff0364",
-      lineWidth: 2
-    });
-    drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION, {
-      color: "#C0C0C070",
-      lineWidth: 1
-    });
-    if(results.faceLandmarks && results.faceLandmarks.length === 478){
-      //draw pupils
-      drawLandmarks(canvasCtx, [results.faceLandmarks[468],results.faceLandmarks[468+5]], {
-        color: "#ffe603",
-        lineWidth: 2
-      });
-    }
-    
-    drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, {
-      color: "#eb1064",
-      lineWidth: 5
-    });
-    drawLandmarks(canvasCtx, results.leftHandLandmarks, {
-      color: "#00cff7",
-      lineWidth: 2
-    });
-    drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, {
-      color: "#22c3e3",
-      lineWidth: 5
-    });
-    drawLandmarks(canvasCtx, results.rightHandLandmarks, {
-      color: "#ff0364",
-      lineWidth: 2
-    });
-    
-}
 
 
 
-// Use `Mediapipe` utils to get camera - lower resolution = higher fps
-const camera = new Camera(videoElement, {
-  onFrame: async () => {
-    await holistic.send({image: videoElement});
-  },
-  width: 640,
-  height: 480
-});
-camera.start();
+
 
 
 //撮影
