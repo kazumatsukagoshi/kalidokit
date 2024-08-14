@@ -47,7 +47,10 @@ class BasicScene {
         // Set up the Three.js scene, camera, and renderer
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(60, this.width / this.height, 0.01, 5000);
-        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        this.renderer = new THREE.WebGLRenderer({ 
+             antialias: true
+             canvas: document.querySelector("#view")
+        });
         this.renderer.setSize(this.width, this.height);
         THREE.ColorManagement.legacy = false;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
