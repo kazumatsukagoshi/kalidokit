@@ -322,13 +322,12 @@ document.querySelector("#save").addEventListener("click", () => {
   picture.width = 820
   picture.height = 1106
 
-
     // canvasに画像を貼り付ける
   //ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
   ctx.drawImage(guideCanvas, 0, 0, picture.width, picture.height)
   //ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
 
-  const base64Image = document.getElementById('picture').toDataURL()
+  const base64Image = document.getElementById('view').toDataURL()
   resizeImage(base64Image, (base64) => {
     const object = {
       // "url": dataUrl
