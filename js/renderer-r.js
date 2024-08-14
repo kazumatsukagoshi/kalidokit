@@ -305,7 +305,7 @@ async function runDemo() {
 runDemo();
 
 let videoElement = document.querySelector(".input_video"),
-    guideCanvas = document.querySelector("canvas.guides");
+    guideCanvas = document.querySelector(""#view"");
 
 
 //撮影
