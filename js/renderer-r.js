@@ -37,6 +37,10 @@ function createCameraPlaneMesh(camera, depth, material) {
     cameraPlaneGeometry.translate(0, 0, -depth);
     return new THREE.Mesh(cameraPlaneGeometry, material);
 }
+
+let videoElement = document.querySelector(".input_video"),
+    guideCanvas = document.querySelector(""#view"");
+
 class BasicScene {
     constructor() {
         this.lastTime = 0;
@@ -83,6 +87,8 @@ class BasicScene {
         // Render the scene
         this.render();
         window.addEventListener("resize", this.resize.bind(this));
+
+         
     }
     resize() {
         this.width = window.innerWidth;
@@ -94,7 +100,18 @@ class BasicScene {
         this.renderer.render(this.scene, this.camera);
     }
     render(time = this.lastTime) {
-        const delta = (time - this.lastTime) / 1000;
+
+                  //これでいいのか？
+  guideCanvas.width = videoElement.videoWidth;
+  guideCanvas.height = videoElement.videoHeight;
+
+let canvasCtx = guideCanvas.getContext('2d');
+  canvasCtx.save();
+  canvasCtx.clearRect(0, 0, guideCanvas.width, guideCanvas.height);
+  canvasCtx.drawImage(this.renderer.domElement, 0, 0)
+//ここまで
+         
+         const delta = (time - this.lastTime) / 1000;
         this.lastTime = time;
         // Call all registered callbacks with deltaTime parameter
         for (const callback of this.callbacks) {
@@ -104,6 +121,10 @@ class BasicScene {
         this.renderer.render(this.scene, this.camera);
         // Request next frame
         requestAnimationFrame((t) => this.render(t));
+
+
+}
+
     }
 }
 class Avatar {
@@ -303,9 +324,6 @@ async function runDemo() {
     console.log("Finished Loading MediaPipe Model.");
 }
 runDemo();
-
-let videoElement = document.querySelector(".input_video"),
-    guideCanvas = document.querySelector(""#view"");
 
 
 //撮影
