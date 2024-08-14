@@ -44,7 +44,7 @@ class BasicScene {
         // Initialize the canvas with the same aspect ratio as the video input
         //this.height = window.innerHeight;
         //this.width = (this.height * 1280) / 720;
-         this.height = 1106:
+         this.height = 1106;
          this.width = 820;     
         // Set up the Three.js scene, camera, and renderer
         this.scene = new THREE.Scene();
