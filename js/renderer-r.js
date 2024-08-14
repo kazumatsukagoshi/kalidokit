@@ -38,9 +38,6 @@ function createCameraPlaneMesh(camera, depth, material) {
     return new THREE.Mesh(cameraPlaneGeometry, material);
 }
 
-let videoElement = document.querySelector(".input_video"),
-    guideCanvas = document.querySelector("#view");
-
 class BasicScene {
     constructor() {
         this.lastTime = 0;
@@ -60,7 +57,7 @@ class BasicScene {
         this.renderer.setSize(this.width, this.height);
         THREE.ColorManagement.legacy = false;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
-        document.body.appendChild(this.renderer.domElement);
+        //document.body.appendChild(this.renderer.domElement);
         // Set up the basic lighting for the scene
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         this.scene.add(ambientLight);
@@ -109,13 +106,6 @@ class BasicScene {
         // Render the scene
         this.renderer.render(this.scene, this.camera);
 
-                           //これでいいのか？
-        guideCanvas.width = 820;
-        guideCanvas.height = 1106;
-
-        let canvasCtx = guideCanvas.getContext('2d');
-        canvasCtx.drawImage(this.renderer.domElement, 0, 0)
-//ここまで
         // Request next frame
         requestAnimationFrame((t) => this.render(t));
 
@@ -323,25 +313,19 @@ runDemo();
 
 //撮影
 const picture = document.querySelector("#picture")
+let  guideCanvas = document.querySelector("#view")
 /**
    * シャッターボタン
  */
 document.querySelector("#save").addEventListener("click", () => {
   const ctx = picture.getContext('2d')
-  picture.width = videoElement.videoWidth
-  picture.height = videoElement.videoHeight
+  picture.width = 820
+  picture.height = 1106
 
-
-    // 演出的な目的で一度映像を止めてSEを再生する
-    videoElement.pause()  // 映像を停止
-    //se.play()      // シャッター音
-    setTimeout( () => {
-      videoElement.play()    // 0.5秒後にカメラ再開
-    }, 500);
 
     // canvasに画像を貼り付ける
   //ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
-  ctx.drawImage(guideCanvas, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+  ctx.drawImage(guideCanvas, 0, 0, picture.width, picture.height)
   //ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
 
   const base64Image = document.getElementById('picture').toDataURL()
