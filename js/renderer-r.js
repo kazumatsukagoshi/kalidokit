@@ -39,7 +39,7 @@ function createCameraPlaneMesh(camera, depth, material) {
 }
 
 let videoElement = document.querySelector(".input_video"),
-    guideCanvas = document.querySelector(""#view"");
+    guideCanvas = document.querySelector("#view");
 
 class BasicScene {
     constructor() {
