@@ -100,16 +100,7 @@ class BasicScene {
         this.renderer.render(this.scene, this.camera);
     }
     render(time = this.lastTime) {
-
-                  //これでいいのか？
-  guideCanvas.width = videoElement.videoWidth;
-  guideCanvas.height = videoElement.videoHeight;
-
-let canvasCtx = guideCanvas.getContext('2d');
-  canvasCtx.drawImage(this.renderer.domElement, 0, 0)
-//ここまで
-         
-         const delta = (time - this.lastTime) / 1000;
+        const delta = (time - this.lastTime) / 1000;
         this.lastTime = time;
         // Call all registered callbacks with deltaTime parameter
         for (const callback of this.callbacks) {
@@ -117,6 +108,14 @@ let canvasCtx = guideCanvas.getContext('2d');
         }
         // Render the scene
         this.renderer.render(this.scene, this.camera);
+
+                           //これでいいのか？
+        guideCanvas.width = 820;
+        guideCanvas.height = 1106;
+
+        let canvasCtx = guideCanvas.getContext('2d');
+        canvasCtx.drawImage(this.renderer.domElement, 0, 0)
+//ここまで
         // Request next frame
         requestAnimationFrame((t) => this.render(t));
 
