@@ -327,7 +327,7 @@ document.querySelector("#save").addEventListener("click", () => {
     }, 500);
 
     // canvasに画像を貼り付ける
-  ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+  //ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
   ctx.drawImage(guideCanvas, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
   //ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
 
