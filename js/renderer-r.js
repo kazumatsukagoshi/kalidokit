@@ -106,7 +106,6 @@ class BasicScene {
   guideCanvas.height = videoElement.videoHeight;
 
 let canvasCtx = guideCanvas.getContext('2d');
-  canvasCtx.save();
   canvasCtx.clearRect(0, 0, guideCanvas.width, guideCanvas.height);
   canvasCtx.drawImage(this.renderer.domElement, 0, 0)
 //ここまで
