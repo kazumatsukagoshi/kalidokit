@@ -107,7 +107,7 @@ class BasicScene {
     this.controls.update();
 
     // Add a video background
-    const video = document.getElementById("webcam") as HTMLVideoElement;
+    const video = document.getElementById("video") as HTMLVideoElement;
     const inputFrameTexture = new THREE.VideoTexture(video);
     if (!inputFrameTexture) {
       throw new Error("Failed to get the 'input_frame' texture!");
@@ -353,7 +353,7 @@ function onVideoFrame(time: DOMHighResTimeStamp): void {
 
 // Stream webcam into landmarker loop (and also make video visible)
 async function streamWebcamThroughFaceLandmarker(): Promise<void> {
-  video = document.getElementById("webcam") as HTMLVideoElement;
+  video = document.getElementById("video") as HTMLVideoElement;
 
   function onAcquiredUserMedia(stream: MediaStream): void {
     video.srcObject = stream;
@@ -367,8 +367,8 @@ async function streamWebcamThroughFaceLandmarker(): Promise<void> {
       audio: false,
       video: {
         facingMode: "user",
-        width: 1106,
-        height: 820
+        width: 1280,
+        height: 720
       }
     });
     onAcquiredUserMedia(evt);
