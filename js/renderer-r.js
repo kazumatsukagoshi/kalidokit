@@ -301,3 +301,91 @@ async function runDemo() {
     console.log("Finished Loading MediaPipe Model.");
 }
 runDemo();
+
+let videoElement = document.querySelector(".input_video"),
+    guideCanvas = document.querySelector("canvas.guides");
+
+
+//撮影
+const picture = document.querySelector("#picture")
+/**
+   * シャッターボタン
+ */
+document.querySelector("#save").addEventListener("click", () => {
+  const ctx = picture.getContext('2d')
+  picture.width = videoElement.videoWidth
+  picture.height = videoElement.videoHeight
+
+
+    // 演出的な目的で一度映像を止めてSEを再生する
+    videoElement.pause()  // 映像を停止
+    //se.play()      // シャッター音
+    setTimeout( () => {
+      videoElement.play()    // 0.5秒後にカメラ再開
+    }, 500);
+
+    // canvasに画像を貼り付ける
+  ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+  ctx.drawImage(guideCanvas, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+  //ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+
+  const base64Image = document.getElementById('picture').toDataURL()
+  resizeImage(base64Image, (base64) => {
+    const object = {
+      // "url": dataUrl
+      'url': base64Image,
+    }
+    const result = prompt(JSON.stringify(object))
+      })
+  return false
+})
+
+/**
+ * 画像のリサイズ
+ * @param  {string}   base64   [base64]
+ * @param  {Function} callback [Function]
+ * @return {string}            [base64]
+ */
+const resizeImage = function(base64, callback) {
+    const MIN_SIZE = 400;
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var image = new Image();
+    image.crossOrigin = "Anonymous";
+    image.onload = function(event){
+        var dstWidth, dstHeight;
+        if (this.width > this.height) {
+            dstWidth = MIN_SIZE;
+            dstHeight = this.height * MIN_SIZE / this.width;
+        } else {
+            dstHeight = MIN_SIZE;
+            dstWidth = this.width * MIN_SIZE / this.height;
+        }
+        canvas.width = dstWidth;
+        canvas.height = dstHeight;
+        ctx.drawImage(this, 0, 0, this.width, this.height, 0, 0, dstWidth, dstHeight);
+        callback(canvas.toDataURL());
+    };
+    image.src = base64;
+};
+ 
+ /**
+ * base64からBlobにコンパイル
+ * @param  {string} base64 [base64]
+ * @return {string}        [blob]
+ */
+function base64toBlob(base64) {
+  var bin = atob(base64.replace(/^.*,/, ''));
+  var buffer = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) {
+    buffer[i] = bin.charCodeAt(i);
+  }
+  try{
+    var blob = new Blob([buffer.buffer], {
+      type: 'image/jpeg'
+    });
+  }catch (e){
+    return false;
+  }
+  return blob;
+}
