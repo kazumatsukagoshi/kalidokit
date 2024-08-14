@@ -123,8 +123,6 @@ let canvasCtx = guideCanvas.getContext('2d');
         requestAnimationFrame((t) => this.render(t));
 
 
-}
-
     }
 }
 class Avatar {
