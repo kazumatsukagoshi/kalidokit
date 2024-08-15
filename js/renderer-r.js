@@ -38,6 +38,9 @@ function createCameraPlaneMesh(camera, depth, material) {
     return new THREE.Mesh(cameraPlaneGeometry, material);
 }
 
+let getImageData;
+let imgData;
+
 class BasicScene {
     constructor() {
         this.lastTime = 0;
@@ -105,6 +108,10 @@ class BasicScene {
         }
         // Render the scene
         this.renderer.render(this.scene, this.camera);
+         if(getImageData == true){
+              imgData = this.renderer.domElement.toDataURL();
+              getImageData = false;
+         }
 
         // Request next frame
         requestAnimationFrame((t) => this.render(t));
@@ -318,16 +325,26 @@ let  guideCanvas = document.querySelector("#view")
    * シャッターボタン
  */
 document.querySelector("#save").addEventListener("click", () => {
+  getImageData = true
   const ctx = picture.getContext('2d')
   picture.width = 820
   picture.height = 1106
 
+ let videoElement = document.getElementById("webcam");
+
+  // 演出的な目的で一度映像を止めてSEを再生する
+    videoElement.pause()  // 映像を停止
+    //se.play()      // シャッター音
+    setTimeout( () => {
+      videoElement.play()    // 0.5秒後にカメラ再開
+  }, 500);
+ 
     // canvasに画像を貼り付ける
   //ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
-  ctx.drawImage(guideCanvas, 0, 0, picture.width, picture.height)
+  //ctx.drawImage(guideCanvas, 0, 0, picture.width, picture.height)
   //ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
 
-  const base64Image = document.getElementById('view').toDataURL()
+  const base64Image = imgData //document.getElementById('view').toDataURL()
   resizeImage(base64Image, (base64) => {
     const object = {
       // "url": dataUrl
