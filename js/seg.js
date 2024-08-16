@@ -1,5 +1,5 @@
 /* SETUP MEDIAPIPE HOLISTIC INSTANCE */
-let videoElement = document.querySelector(".input_video"),
+let videoElement = document.querySelector("video.input_video"),
     guideCanvas = document.querySelector("canvas.guides");
 
 videoElement.width = 1106
