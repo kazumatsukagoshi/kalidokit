@@ -1,0 +1,107 @@
+Index.css
+/*
+@font-face {
+    font-family: "Jelly";
+    font-display: block;
+    src: url("https://yeemachine.github.io/kalidoface-live2d-models/Font/kalidoface-jelly.ttf") format("truetype");
+}
+h1 {
+    font-family: "Jelly";
+    font-size: 32px;
+    color: white;
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    font-weight: normal;
+    -webkit-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+h1:hover {
+    color: #13a3f3;
+}
+
+a,
+a:visited,
+a:link {
+    text-decoration: none;
+    color: #222;
+    display: inline-block;
+}
+
+a:hover,
+a:visited:hover,
+
+
+a:link:hover {
+    color: #13a3f3;
+    cursor: pointer;
+}
+*/
+a,
+.preview {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+/*   bottom: 16px;
+    right: 16px;
+    */
+    overflow: hidden;
+    border-radius: 8px;
+    background: #222;
+}
+video {
+    height: auto;
+    transform: scale(-1, 1);
+    
+    display: flex;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.preview canvas {
+    transform: scale(-1, 1);
+}
+body {
+    margin: 0;
+}
+canvas {
+    display: block;
+}
+.guides {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+    z-index: 1;
+}
+.output_canvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+    z-index: 1;
+}
+.mask_canvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+    z-index: 1;
+}
+
+.save {
+    position: relative;
+    z-index: 9;
+}
+
+@media only screen and (max-width: 1106px) {
+    video {
+        max-width: 1106px;
+    }
+}
