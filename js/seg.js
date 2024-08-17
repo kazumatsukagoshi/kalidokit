@@ -123,8 +123,8 @@ creatImageSegmenter();
 
 function callbackForVideo(result) {
   var canvas = document.createElement('canvas');
-  canvas.width = video.height
-  canvas.height = video.width
+  canvas.width = video.width
+  canvas.height = video.height
   var ctx = canvas.getContext('2d');
   //let imageData = canvasCtx.getImageData(
   let imageData = ctx.getImageData(
