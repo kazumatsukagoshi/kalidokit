@@ -158,8 +158,8 @@ function callbackForVideo(result) {
   resizedcanvas.width = window.outerWidth
   resizedcanvas.height = window.outerHeight
   var resizedctx = resizedcanvas.getContext('2d');
-  resizedctx.drawImage(canvas, 0, 0, canvasElement.width, canvasElement.height)
-  //ctx.drawImage(canvas, 0, 0, canvasElement.width, canvasElement.height)
+  //resizedctx.drawImage(canvas, 0, 0, canvasElement.width, canvasElement.height)
+  resizedctx.drawImage(canvas, 0, 0, canvas.width, canvas.height)
   maskCtx.putImageData(resizedctx.getImageData(0,0, canvasElement.width, canvasElement.height), 0, 0)
 }
 
