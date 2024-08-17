@@ -123,8 +123,8 @@ creatImageSegmenter();
 
 function callbackForVideo(result) {
   var canvas = document.createElement('canvas');
-  canvas.width = video.width
-  canvas.height = video.height
+  canvas.width = video.videoWidth
+  canvas.height = video.videoHeight
   var ctx = canvas.getContext('2d');
   //let imageData = canvasCtx.getImageData(
   let imageData = ctx.getImageData(
@@ -159,9 +159,9 @@ function callbackForVideo(result) {
   resizedcanvas.height = window.outerHeight
   var resizedctx = resizedcanvas.getContext('2d');
   //resizedctx.drawImage(canvas, 0, 0, canvasElement.width, canvasElement.height)
-  resizedctx.drawImage(canvas, 0, 0, canvas.width, canvas.height)
+  resizedctx.drawImage(canvas, 0, 0, maskElement.width, maskElement.height)
   //maskCtx.putImageData(resizedctx.getImageData(0,0, canvasElement.width, canvasElement.height), 0, 0)
-  maskCtx.putImageData(resizedctx.getImageData(0,0, canvas.width, canvas.height), 0, 0)
+  maskCtx.putImageData(resizedctx.getImageData(0,0, maskElement.width, maskElement.height), 0, 0)
 }
 
 
