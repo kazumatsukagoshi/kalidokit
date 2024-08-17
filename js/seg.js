@@ -4,12 +4,12 @@ video.width = 1106
 video.height = 820
 
 const canvasElement = document.getElementById("output_canvas");
-canvasElement.width = video.width
-canvasElement.height = video.height
+canvasElement.width = video.height
+canvasElement.height = video.width
 const canvasCtx = canvasElement.getContext("2d");
 const maskElement = document.getElementById("mask_canvas");
-maskElement.width = video.width
-maskElement.height = video.height
+maskElement.width = video.height
+maskElement.height = video.width
 const maskCtx = maskElement.getContext("2d");
 
 const gestureOutput = document.getElementById("gesture_output");
@@ -123,17 +123,17 @@ creatImageSegmenter();
 
 function callbackForVideo(result) {
   var canvas = document.createElement('canvas');
-  canvas.width = video.videoWidth
-  canvas.height = video.videoHeight
+  canvas.width = video.height
+  canvas.height = video.width
   var ctx = canvas.getContext('2d');
   //let imageData = canvasCtx.getImageData(
   let imageData = ctx.getImageData(
     0,
     0,
     //canvasElement.width,
-    video.videoWidth,
+    canvas.width,
     //canvasElement.height
-    video.videoHeight
+    canvas.height
   ).data;
   const mask = result.categoryMask.getAsFloat32Array();
   let j = 0;
@@ -149,8 +149,8 @@ function callbackForVideo(result) {
   const uint8Array = new Uint8ClampedArray(imageData.buffer);
   const dataNew = new ImageData(
     uint8Array,
-    video.videoWidth,
-    video.videoHeight
+    canvas.width,
+    canvas.height
   );
   ctx.putImageData(dataNew, 0, 0)
 
@@ -309,8 +309,8 @@ const picture = document.querySelector("#picture")
    */
    document.querySelector("#save").addEventListener("click", () => {
     const ctx = picture.getContext("2d")
-      picture.width = video.videoWidth
-      picture.height = video.videoHeight
+      picture.width = video.height
+      picture.height = video.width
 
     // 演出的な目的で一度映像を止めてSEを再生する
     video.pause()  // 映像を停止
@@ -320,9 +320,9 @@ const picture = document.querySelector("#picture")
     }, 500);
 
     // canvasに画像を貼り付ける
-    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-    ctx.drawImage(canvasElement, 0, 0, video.videoWidth, video.videoHeight);
-    ctx.drawImage(maskElement, 0, 0, video.videoWidth, video.videoHeight);
+    ctx.drawImage(video, 0, 0, picture.width, picture.height);
+    ctx.drawImage(canvasElement, 0, 0, picture.width, picture.height);
+    ctx.drawImage(maskElement, 0, 0, picture.width, picture.height);
 
     var base64Image = document.getElementById('picture').toDataURL()
   resizeImage(base64Image, function(base64) {
