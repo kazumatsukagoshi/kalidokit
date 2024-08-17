@@ -22,7 +22,6 @@ const gestureOutput = document.getElementById("gesture_output");
 // Create task for image file processing:
 import {
   ImageSegmenter,
-  SegmentationMask, 
   GestureRecognizer,
   FaceLandmarker,
   FilesetResolver,
@@ -117,13 +116,6 @@ const creatImageSegmenter = async () => {
 createFaceLandmarker();
 creatGestureLandmarker();
 creatImageSegmenter();
-
- // Activate the webcam stream.
- navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-   video.srcObject = stream;
-   video.addEventListener("loadeddata", predictWebcam);
- });
-
 
 
 /********************************************************************
@@ -295,22 +287,11 @@ async function predictWebcam() {
 /////
 ///// DEMO
 /////
-
-// add 'Tap + Hold to Add to Photos' prompt when user takes a photo
-window.addEventListener('mediarecorder-photocomplete', () => {
-  document.getElementById('overlay').style.display = 'block'
-})
-
-// hide 'Tap + Hold to Add to Photos' prompt when user dismisses preview modal
-window.addEventListener('mediarecorder-previewclosed', () => {
-  document.getElementById('overlay').style.display = 'none'
-})
-
-const onxrloaded = () => {
-  XR8.CanvasScreenshot.configure({maxDimension: 1920, jpgCompression: 100})
-}
-
-window.XR8 ? onxrloaded() : window.addEventListener('xrloaded', onxrloaded)
+ // Activate the webcam stream.
+ navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+   video.srcObject = stream;
+   video.addEventListener("loadeddata", predictWebcam);
+ });
 
 const picture = document.querySelector("#picture")
 /**
