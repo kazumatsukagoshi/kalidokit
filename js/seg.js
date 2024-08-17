@@ -1,7 +1,5 @@
 /* SETUP MEDIAPIPE HOLISTIC INSTANCE */
-let video = document.querySelector("video.input_video"),
-    guideCanvas = document.querySelector("canvas.guides");
-
+let video = document.querySelector("video.input_video")
 video.width = 1106
 video.height = 820
 
@@ -161,7 +159,6 @@ function callbackForVideo(result) {
   var resizedctx = resizedcanvas.getContext('2d');
   resizedctx.drawImage(canvas, 0, 0, canvasElement.width, canvasElement.height)
   //ctx.drawImage(canvas, 0, 0, canvasElement.width, canvasElement.height)
-  maskCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   maskCtx.putImageData(resizedctx.getImageData(0,0, canvasElement.width, canvasElement.height), 0, 0)
 }
 
@@ -289,6 +286,16 @@ async function predictWebcam() {
 /////
 ///// DEMO
 /////
+// add 'Tap + Hold to Add to Photos' prompt when user takes a photo
+window.addEventListener('mediarecorder-photocomplete', () => {
+  document.getElementById('overlay').style.display = 'block'
+})
+
+// hide 'Tap + Hold to Add to Photos' prompt when user dismisses preview modal
+window.addEventListener('mediarecorder-previewclosed', () => {
+  document.getElementById('overlay').style.display = 'none'
+})
+
  // Activate the webcam stream.
  navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
    video.srcObject = stream;
