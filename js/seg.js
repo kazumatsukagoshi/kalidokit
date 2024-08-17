@@ -168,8 +168,9 @@ function callbackForVideo(result) {
 let lastVideoTime = -1;
 let results = undefined;
 let gestureResults = undefined;
+
 async function predictWebcam() {
-  const webcamElement = document.getElementById("webcam");
+  //const webcamElement = document.getElementById("webcam");
   // Now let's start detecting the stream.
   let nowInMs = Date.now();
   if (video.currentTime !== lastVideoTime) {
@@ -297,7 +298,7 @@ const picture = document.querySelector("#picture")
 /**
    * シャッターボタン
    */
-   document.querySelector("#shutter").addEventListener("click", () => {
+   document.querySelector("#save").addEventListener("click", () => {
     const ctx = picture.getContext("2d")
       picture.width = video.videoWidth
       picture.height = video.videoHeight
@@ -376,7 +377,7 @@ function base64toBlob(base64) {
   }
   return blob;
 }
-
+/*
 document.getElementById('save').addEventListener('click', function() {
   var base64Image = document.getElementById('picture').toDataURL()
   resizeImage(base64Image, function(base64) {
@@ -392,3 +393,4 @@ document.getElementById('save').addEventListener('click', function() {
   })
   return false
 })
+*/
