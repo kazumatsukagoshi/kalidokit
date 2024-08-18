@@ -160,8 +160,8 @@ async function predictWebcam() {
   if (video.currentTime !== lastVideoTime) {
     lastVideoTime = video.currentTime;
     imageSegmenter.segmentForVideo(video, nowInMs, callbackForVideo);
-    results = faceLandmarker.detectForVideo(video, nowInMs );
-    gestureResults = gestureRecognizer.recognizeForVideo(video, nowInMs);
+   // results = faceLandmarker.detectForVideo(video, nowInMs );
+   // gestureResults = gestureRecognizer.recognizeForVideo(video, nowInMs);
   }
 
   //canvasCtx.save();
