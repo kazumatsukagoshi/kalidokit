@@ -112,9 +112,9 @@ const creatImageSegmenter = async () => {
   });
 };
 
+creatImageSegmenter();
 createFaceLandmarker();
 creatGestureLandmarker();
-creatImageSegmenter();
 
 
 /********************************************************************
@@ -175,6 +175,7 @@ async function predictWebcam() {
   let nowInMs = Date.now();
   if (video.currentTime !== lastVideoTime) {
     lastVideoTime = video.currentTime;
+    imageSegmenter.segmentForVideo(video, nowInMs, callbackForVideo);
     results = faceLandmarker.detectForVideo(video, nowInMs );
     gestureResults = gestureRecognizer.recognizeForVideo(video, nowInMs);
   }
@@ -281,7 +282,6 @@ async function predictWebcam() {
     gestureOutput.style.display = "none";
   }
   // Call this function again to keep predicting when the browser is ready.
-  imageSegmenter.segmentForVideo(video, nowInMs, callbackForVideo);
   window.requestAnimationFrame(predictWebcam);
 }
 
