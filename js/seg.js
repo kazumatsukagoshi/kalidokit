@@ -167,7 +167,7 @@ async function predictWebcam() {
   //canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   const drawingUtils = new DrawingUtils(canvasCtx);
-
+/*
   if (results.faceLandmarks) {
     for (const landmarks of results.faceLandmarks) {
       drawingUtils.drawConnectors(
@@ -249,12 +249,6 @@ async function predictWebcam() {
      //  const handedness = results.handednesses[0][0].displayName;
       const handedness = gestureResults.handednesses[i][0].displayName;
    
-   /*
-   if (i == 0){
-    gestureOutput.innerText = `[${i}]Gesture: ${categoryName},  ${categoryScore} %,  ${handedness}\n`;
-   } else{
-    gestureOutput.innerText += `[${i}]Gesture: ${categoryName},  ${categoryScore} %,  ${handedness}\n`;
-   }*/
       if (i == 0){
         gestureOutput.innerText = `[${i}] ${categoryName}:  ${handedness}`;
       } else{
@@ -265,6 +259,7 @@ async function predictWebcam() {
   } else {
     gestureOutput.style.display = "none";
   }
+  */
   // Call this function again to keep predicting when the browser is ready.
   window.requestAnimationFrame(predictWebcam);
 }
