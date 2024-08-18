@@ -63,22 +63,10 @@ const constraints = {
     };
 
 
-const creatImageSegmenter = async () => {
+const createFaceLandmarker = async () => {
   const vision = await FilesetResolver.forVisionTasks(
     "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
   );
-  imageSegmenter = await ImageSegmenter.createFromOptions(vision, {
-    baseOptions: {
-      modelAssetPath:
-        //"https://storage.googleapis.com/mediapipe-models/image_segmenter/deeplab_v3/float32/1/deeplab_v3.tflite",
-        //"https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite",
-       "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/latest/selfie_multiclass_256x256.tflite",
-      delegate: "GPU"
-    },
-    runningMode: "VIDEO",
-    outputCategoryMask: true,
-    outputConfidenceMasks: false
-  });
   faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
     baseOptions: {
       modelAssetPath:
@@ -89,6 +77,12 @@ const creatImageSegmenter = async () => {
     runningMode: "VIDEO",
     numFaces: 9
   });
+};
+
+const creatGestureLandmarker = async () => {
+  const vision = await FilesetResolver.forVisionTasks(
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
+  );
   gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
     baseOptions: {
       modelAssetPath:
@@ -99,6 +93,27 @@ const creatImageSegmenter = async () => {
     numHands: 18
   });
 };
+
+const creatImageSegmenter = async () => {
+  const vision = await FilesetResolver.forVisionTasks(
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
+  );
+  imageSegmenter = await ImageSegmenter.createFromOptions(vision, {
+    baseOptions: {
+      modelAssetPath:
+        //"https://storage.googleapis.com/mediapipe-models/image_segmenter/deeplab_v3/float32/1/deeplab_v3.tflite",
+        //"https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite",
+        "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/latest/selfie_multiclass_256x256.tflite",
+      delegate: "GPU"
+    },
+    runningMode: "VIDEO",
+    outputCategoryMask: true,
+    outputConfidenceMasks: false
+  });
+};
+
+createFaceLandmarker();
+creatGestureLandmarker();
 creatImageSegmenter();
 
 /********************************************************************
@@ -159,6 +174,9 @@ async function predictWebcam() {
   let nowInMs = Date.now();
   if (video.currentTime !== lastVideoTime) {
     lastVideoTime = video.currentTime;
+    if(faceLandmarker == null || gestureRecognizer == null || imageSegmenter == null){
+        window.requestAnimationFrame(predictWebcam);
+    }
     imageSegmenter.segmentForVideo(video, nowInMs, callbackForVideo);
     results = faceLandmarker.detectForVideo(video, nowInMs );
     gestureResults = gestureRecognizer.recognizeForVideo(video, nowInMs);
