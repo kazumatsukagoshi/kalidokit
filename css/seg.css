@@ -42,9 +42,9 @@ a:link:hover {
 a,
 .preview {
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column; */
     position: absolute;
-    width: 48%;
+    width: 100%;
 /*   bottom: 16px;
     right: 16px;
     */
@@ -55,7 +55,7 @@ a,
 video {
     height: auto;
     transform: scale(-1, 1);
-    width: auto;
+    /*width: auto;*/
     display: flex;
     bottom: 0;
     left: 0;
