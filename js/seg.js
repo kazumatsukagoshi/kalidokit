@@ -177,6 +177,7 @@ async function predictWebcam() {
     if(faceLandmarker == null || gestureRecognizer == null || imageSegmenter == null){
         window.requestAnimationFrame(predictWebcam);
     }
+    imageSegmenter.segmentForVideo(video, nowInMs, callbackForVideo);
     results = faceLandmarker.detectForVideo(video, nowInMs );
     gestureResults = gestureRecognizer.recognizeForVideo(video, nowInMs);
   }
@@ -276,8 +277,6 @@ async function predictWebcam() {
   } else {
     gestureOutput.style.display = "none";
   }
-
-  imageSegmenter.segmentForVideo(video, nowInMs, callbackForVideo);
 
   // Call this function again to keep predicting when the browser is ready.
   window.requestAnimationFrame(predictWebcam);
