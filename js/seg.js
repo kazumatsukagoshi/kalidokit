@@ -160,14 +160,14 @@ async function predictWebcam() {
   if (video.currentTime !== lastVideoTime) {
     lastVideoTime = video.currentTime;
     imageSegmenter.segmentForVideo(video, nowInMs, callbackForVideo);
-   // results = faceLandmarker.detectForVideo(video, nowInMs );
-   // gestureResults = gestureRecognizer.recognizeForVideo(video, nowInMs);
+    results = faceLandmarker.detectForVideo(video, nowInMs );
+    gestureResults = gestureRecognizer.recognizeForVideo(video, nowInMs);
   }
 
   //canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   const drawingUtils = new DrawingUtils(canvasCtx);
-/*
+
   if (results.faceLandmarks) {
     for (const landmarks of results.faceLandmarks) {
       drawingUtils.drawConnectors(
@@ -259,7 +259,7 @@ async function predictWebcam() {
   } else {
     gestureOutput.style.display = "none";
   }
-  */
+  
   // Call this function again to keep predicting when the browser is ready.
   window.requestAnimationFrame(predictWebcam);
 }
