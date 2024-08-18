@@ -1,11 +1,11 @@
 /* SETUP MEDIAPIPE HOLISTIC INSTANCE */
 let video = document.querySelector("video.input_video")
-video.width = 1106
-video.height = 820
+video.width = window.outerWidth
+video.height = video.width * 1.3333333 //window.outerHeight
 
 const canvasElement = document.getElementById("output_canvas");
-canvasElement.width = video.height
-canvasElement.height = video.width
+canvasElement.width = video.width
+canvasElement.height = video.height
 const canvasCtx = canvasElement.getContext("2d");
 const maskElement = document.getElementById("mask_canvas");
 maskElement.width = video.width
