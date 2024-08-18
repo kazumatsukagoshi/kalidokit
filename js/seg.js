@@ -79,13 +79,6 @@ const creatImageSegmenter = async () => {
     outputCategoryMask: true,
     outputConfidenceMasks: false
   });
-};
-creatImageSegmenter();
-
-const createFaceLandmarker = async () => {
-  const vision = await FilesetResolver.forVisionTasks(
-    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
-  );
   faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
     baseOptions: {
       modelAssetPath:
@@ -96,13 +89,6 @@ const createFaceLandmarker = async () => {
     runningMode: "VIDEO",
     numFaces: 9
   });
-};
-createFaceLandmarker();
-
-const creatGestureLandmarker = async () => {
-  const vision = await FilesetResolver.forVisionTasks(
-    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
-  );
   gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
     baseOptions: {
       modelAssetPath:
@@ -113,7 +99,7 @@ const creatGestureLandmarker = async () => {
     numHands: 18
   });
 };
-creatGestureLandmarker();
+creatImageSegmenter();
 
 /********************************************************************
 // Demo 2: Continuously grab image from webcam stream and detect it.
