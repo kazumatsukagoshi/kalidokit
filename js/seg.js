@@ -176,6 +176,7 @@ async function predictWebcam() {
     lastVideoTime = video.currentTime;
     if(faceLandmarker == null || gestureRecognizer == null || imageSegmenter == null){
         window.requestAnimationFrame(predictWebcam);
+      return
     }
     imageSegmenter.segmentForVideo(video, nowInMs, callbackForVideo);
     results = faceLandmarker.detectForVideo(video, nowInMs );
