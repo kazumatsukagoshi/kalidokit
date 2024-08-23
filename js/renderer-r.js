@@ -111,11 +111,18 @@ class BasicScene {
          if(getImageData == true){
               imgData = this.renderer.domElement.toDataURL();
               getImageData = false;
+              const base64Image = imgData //document.getElementById('view').toDataURL()
+                   resizeImage(base64Image, (base64) => {
+                   const object = {
+                     // "url": dataUrl
+                   'url': base64Image,
+                   }
+                   const result = prompt(JSON.stringify(object))
+             })
          }
 
         // Request next frame
         requestAnimationFrame((t) => this.render(t));
-
 
     }
 }
@@ -345,14 +352,7 @@ document.querySelector("#save").addEventListener("click", () => {
   //ctx.drawImage(guideCanvas, 0, 0, picture.width, picture.height)
   //ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
 
-  const base64Image = imgData //document.getElementById('view').toDataURL()
-  resizeImage(base64Image, (base64) => {
-    const object = {
-      // "url": dataUrl
-      'url': base64Image,
-    }
-    const result = prompt(JSON.stringify(object))
-      })
+ 
   return false
 })
 
