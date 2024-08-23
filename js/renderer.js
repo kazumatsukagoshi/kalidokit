@@ -371,7 +371,7 @@ document.querySelector("#save").addEventListener("click", () => {
 
     // 演出的な目的で一度映像を止めてSEを再生する
     videoElement.pause()  // 映像を停止
-    se.play()      // シャッター音
+    //se.play()      // シャッター音
     setTimeout( () => {
       videoElement.play()    // 0.5秒後にカメラ再開
     }, 500);
