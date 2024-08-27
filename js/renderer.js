@@ -117,7 +117,7 @@ orbitCamera.position.set(0.05, 1.0, 7.0);
 const orbitControls = new THREE.OrbitControls(orbitCamera, renderer.domElement);
 orbitControls.screenSpacePanning = true;
 //orbitControls.target.set(0.0, 1.0, 0.0);
-orbitControls.target.set(0.05, 0.0, 0.0);
+orbitControls.target.set(0.0, 0.0, 0.0);
 
 orbitControls.update();
 
