@@ -109,9 +109,9 @@ renderer.setPixelRatio(window.devicePixelRatio);
 //view.appendChild(renderer.domElement, 0, 0);
 
 // camera
-const orbitCamera = new THREE.PerspectiveCamera(50,window.innerWidth / window.innerHeight,0.1,1000);
+const orbitCamera = new THREE.PerspectiveCamera(35,window.innerWidth / window.innerHeight,0.1,1000);
 //orbitCamera.position.set(0.0, 1.0, 5.0);
-orbitCamera.position.set(0.0, 1.0, 5.0);
+orbitCamera.position.set(0.0, -1.0, 5.0);
 
 // controls
 const orbitControls = new THREE.OrbitControls(orbitCamera, renderer.domElement);
