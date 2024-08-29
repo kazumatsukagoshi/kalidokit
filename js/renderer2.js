@@ -61,8 +61,8 @@ function startCamera() {
     video: true,
    video: {
      deviceId: videoDeviceId,
-     width: 1106,
-     height: 820
+     width: 1260,
+     height: 840
     }
   }
 
@@ -473,9 +473,11 @@ function updateCountDown(){
    * シャッターボタン
  */
 document.querySelector("#save").addEventListener("click", () => {
-  targetTime = new Date().getTime() + 5500; 
-  interval = setInterval(updateCountDown, 1000);
-+  updateCountDown();
+  if (!interval) {
+    targetTime = new Date().getTime() + 5500; 
+    interval = setInterval(updateCountDown, 1000);
++   updateCountDown();
+  }
 })
 
 function saveImage(){
