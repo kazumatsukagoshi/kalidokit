@@ -1,106 +1,19 @@
 /* SETUP MEDIAPIPE HOLISTIC INSTANCE */
 let videoElement = document.querySelector(".input_video"),
-    guideCanvas = document.querySelector("canvas.guides"),
-    localStream;
-
-window.onload = function() {
-
-  option = {video: true};
-  navigator.mediaDevices.getUserMedia(option).then(function(stream) {
-      // 入出力デバイスの取得
-      navigator.mediaDevices.enumerateDevices().then(function(devices) {
-          devices.forEach(function(device) {
-              switch ( device.kind ) {
-                case 'videoinput':
-                addOption('videoOptions', device.deviceId, device.label);
-                break;
-              }
-          });
-      }).catch(function(err) {
-          console.error(err);
-      });
-      // 停止
-      stream.getTracks().forEach(function(track) {
-          track.stop();
-      });
-  }).catch(function (err) {
-       console.error(err);
-     });
-}
-
-function addOption(target, key, value) {
-  let sel = document.getElementById(target);
-  let opt = document.createElement('option');
-  opt.appendChild(document.createTextNode(value));
-  opt.value = key;
-  sel.appendChild(opt);
-}
-
-
-function startCamera() {
-  stop();
-  let video = document.getElementById('videoOptions');
-  let videoDeviceId;
-  /*
-  for ( let i in audio.options ) {
-      if ( audio.options[i].selected ) {
-          audioDeviceId = audio.options[i].value;
-      }
-  }
-  */
-  for ( let i in video.options ) {
-      if ( video.options[i].selected ) {
-          videoDeviceId = video.options[i].value;
-      }
-  }
-  
-  // getUsermedia parameters.
-  const constraints = {
-    video: true,
-   video: {
-     deviceId: videoDeviceId,
-     width: 1106,
-     height: 820
-    }
-  }
-
-  navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-            videoElement.srcObject = stream;
-            localStream = stream;
-            videoElement.requestVideoFrameCallback(onVideoFrame);
-            animate()
-  }).catch(function (err) {
-      console.error(err);
-  });
-}
-
-// ビデオストリームを停止
-function stop() {
-  if ( localStream ) {
-    videoElement.pause();
-    videoElement.srcObject = null;
-      localStream.getTracks().forEach(function(track) {
-          track.stop();
-      });
-      localStream = null;
-  }
-}
-
+    guideCanvas = document.querySelector("canvas.guides");
 
 // Use `Mediapipe` utils to get camera - lower resolution = higher fps
+const camera = new Camera(videoElement, {
+  onFrame: async () => {
+    await holistic.send({image: videoElement});
+  },
+  width: 1106,
+  height: 820
+  // width: window.width,
+  // height: window.height
+});
+camera.start();
 
-function hasGetUserMedia() {
-  return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-}
-
-
-
-async function onVideoFrame() {
-  // Do something with the frame.
-  await holistic.send({image: videoElement}); 
-  // Re-register the callback to be notified about the next frame.
-  videoElement.requestVideoFrameCallback(onVideoFrame);
-}
 
 const onResults = (results) => {
   // Draw landmark guides Mediapipeの線の表示
@@ -228,7 +141,7 @@ function animate() {
   }
   renderer.render(scene, orbitCamera);
 }
-
+animate();
 
 /* VRM CHARACTER SETUP */
 
