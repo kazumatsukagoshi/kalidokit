@@ -20,9 +20,11 @@ window.onload = function() {
           console.error(err);
       });
       // 停止
+      /*
       stream.getTracks().forEach(function(track) {
           track.stop();
       });
+      */
   }).catch(function (err) {
        console.error(err);
      });
