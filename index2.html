@@ -1,0 +1,55 @@
+<head>
+<link rel="stylesheet" href="css/index2.css">
+<meta
+name="description"
+content="kalidokit test"
+/>
+
+<meta
+name="viewport"
+content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"
+/>
+
+<!--     Basic Three.js -->
+<script src="https://unpkg.com/three@0.133.0/build/three.js"></script>
+<!--     GLTF Loader for Three.js -->
+<script src="https://unpkg.com/three@0.133.0/examples/js/loaders/GLTFLoader.js"></script>
+<!--     Orbit Controls for Three.js -->
+<script src="https://unpkg.com/three@0.133.0/examples/js/controls/OrbitControls.js"></script>
+<!--     VRM Loader for Three.js -->
+<script src="https://unpkg.com/@pixiv/three-vrm@0.6.7/lib/three-vrm.js"></script>
+<!--     Mediapipe or Tensorflow.js -->
+<script
+src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/holistic.js"
+crossorigin="anonymous"
+></script>
+
+<!--     Mediapipe Drawing Tools -->
+<script
+src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
+crossorigin="anonymous"
+></script>
+<!--     Mediapipe Camera Tools -->
+<script
+src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"
+crossorigin="anonymous"
+></script>
+<!--     Kalidokit Kinematic Solver -->
+<script src="https://cdn.jsdelivr.net/npm/kalidokit@1.1/dist/kalidokit.umd.js"
+></script>
+
+</head>
+<body>
+<div id= "preview" class="preview">
+  <video id="webcam" class="input_video"  autoplay muted playsinline></video>
+  <canvas id="view" class="guides"></canvas>
+  <canvas class="output_canvas" id="output_canvas"  style="position: absolute; left: 0px; top: 0px;"></canvas>      
+</div>
+<form>
+    <button type="button" id="save" class="save">保存</button>
+</form>
+<canvas id="picture" width="720" height="720" ></canvas>
+
+  <script src="js/renderer2.js"></script>
+  
+</body>
