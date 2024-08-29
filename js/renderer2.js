@@ -1,6 +1,7 @@
 /* SETUP MEDIAPIPE HOLISTIC INSTANCE */
 let videoElement = document.querySelector(".input_video"),
-    guideCanvas = document.querySelector("canvas.guides");
+    guideCanvas = document.querySelector("canvas.guides"),
+    localStream;
 
 window.onload = function() {
 
