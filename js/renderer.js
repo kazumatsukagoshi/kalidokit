@@ -361,6 +361,7 @@ const animateVRM = (vrm, results) => {
 //撮影
 const picture = document.querySelector("#picture");
 const countDown = document.getElementById('countdown'); 
+const se = document.querySelector('#se');
 let targetTime;
 let interval; 
 
