@@ -7,8 +7,8 @@ const camera = new Camera(videoElement, {
   onFrame: async () => {
     await holistic.send({image: videoElement});
   },
-  width: 1106,
-  height: 820
+  width: 1260,
+  height: 840
   // width: window.width,
   // height: window.height
 });
