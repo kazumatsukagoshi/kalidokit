@@ -41,11 +41,13 @@ function startCamera() {
   stop();
   let video = document.getElementById('videoOptions');
   let videoDeviceId;
+  /*
   for ( let i in audio.options ) {
       if ( audio.options[i].selected ) {
           audioDeviceId = audio.options[i].value;
       }
   }
+  */
   for ( let i in video.options ) {
       if ( video.options[i].selected ) {
           videoDeviceId = video.options[i].value;
