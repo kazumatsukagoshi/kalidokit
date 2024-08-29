@@ -11,7 +11,11 @@ function hasGetUserMedia() {
 // getUsermedia parameters.
 const constraints = {
    video: true,
-   video: { facingMode: "user" }
+   video: {
+    facingMode: "user",
+    width: 1106,
+    height: 820
+   }
 };
 
 async function onVideoFrame() {
