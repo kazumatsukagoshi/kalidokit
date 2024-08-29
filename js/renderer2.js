@@ -446,38 +446,64 @@ const animateVRM = (vrm, results) => {
 };
 
 //撮影
-const picture = document.querySelector("#picture")
+const picture = document.querySelector("#picture");
+const countDown = document.getElementById('countdown'); 
+const se = document.querySelector('#se');
+let targetTime;
+let interval; 
+
+function updateCountDown(){
+
+  const now = new Date().getTime();
+  const distance = targetTime - now;
+
+  //const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  //const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown-sec").textContent = seconds;
+  if(seconds <= 0){
+   clearInterval(interval);
+   saveImage(); 
+  }
+}
 /**
    * シャッターボタン
  */
 document.querySelector("#save").addEventListener("click", () => {
-  const ctx = picture.getContext('2d')
-  picture.width = videoElement.videoWidth
-  picture.height = videoElement.videoHeight
-
-
-    // 演出的な目的で一度映像を止めてSEを再生する
-    videoElement.pause()  // 映像を停止
-    //se.play()      // シャッター音
-    setTimeout( () => {
-      videoElement.play()    // 0.5秒後にカメラ再開
-    }, 500);
-
-    // canvasに画像を貼り付ける
-  ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
-  ctx.drawImage(guideCanvas, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
-  //ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
-
-  const base64Image = document.getElementById('picture').toDataURL()
-  resizeImage(base64Image, (base64) => {
-    const object = {
-      // "url": dataUrl
-      'url': base64Image,
-    }
-    const result = prompt(JSON.stringify(object))
-      })
-  return false
+  targetTime = new Date().getTime() + 5500; 
+  interval = setInterval(updateCountDown, 1000);
++  updateCountDown();
 })
+
+function saveImage(){
+ // SEを再生する
+ videoElement.pause()  
+ se.play()      
+ setTimeout( () => {
+   videoElement.play()    
+ }, 500);
+
+const ctx = picture.getContext('2d')
+picture.width = videoElement.videoWidth
+picture.height = videoElement.videoHeight
+
+ // canvasに画像を貼り付ける
+ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+ctx.drawImage(guideCanvas, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+//ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+
+const base64Image = document.getElementById('picture').toDataURL()
+resizeImage(base64Image, (base64) => {
+ const object = {
+   // "url": dataUrl
+   'url': base64Image,
+ }
+ const result = prompt(JSON.stringify(object))
+   })
+return false
+}
+
 
 /**
  * 画像のリサイズ

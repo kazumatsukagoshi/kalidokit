@@ -93,3 +93,13 @@ canvas {
         max-width: 1106px;
     }
 }
+
+.timer{
+    text-align: center;
+    font-size: 2em;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
