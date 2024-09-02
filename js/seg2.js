@@ -339,7 +339,7 @@ function saveImage(){
 
   // canvasに画像を貼り付ける
   ctx.drawImage(video, 0, 0, picture.width, picture.height);
-  ctx.drawImage(canvasElement, 0, 0, picture.width, picture.height);
+  //ctx.drawImage(canvasElement, 0, 0, picture.width, picture.height);
   ctx.drawImage(maskElement, 0, 0, picture.width, picture.height);
 
   var base64Image = document.getElementById('picture').toDataURL()
