@@ -252,9 +252,11 @@ async function predictWebcam() {
       if (i == 0){
         gestureOutput.innerText = `[${i}] ${categoryName}:  ${handedness}`;
         if (categoryName === "Pointing_Up" ){
-          targetTime = new Date().getTime() + 5500; 
-          interval = setInterval(updateCountDown, 1000);
-       +  updateCountDown();
+          if (!interval){
+            targetTime = new Date().getTime() + 5500; 
+            interval = setInterval(updateCountDown, 1000);
+         +  updateCountDown();
+           }
         }
       } else{
         gestureOutput.innerText += `,[${i}] ${categoryName}:  ${handedness}`;
