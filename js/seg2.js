@@ -122,7 +122,7 @@ window.addEventListener('load', function () {
   // requestAnimationFrameに従った呼び出し
   createjs.Ticker.timingMode = createjs.Ticker.RAF;
   // 定期的に呼ばれる関数を登録
-  createjs.Ticker.addEventListener('tick', handleTick);
+  //createjs.Ticker.addEventListener('tick', handleTick);
 
          // Activate the webcam stream.
  navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
@@ -257,6 +257,8 @@ async function predictWebcam() {
         gestureOutput.innerText = `[${i}] ${categoryName}:  ${handedness}`;
         if (categoryName === "Pointing_Up" ){
           if (!interval){
+            // 定期的に呼ばれる関数を登録
+            createjs.Ticker.addEventListener('tick', handleTick);
             targetTime = new Date().getTime() + 5500; 
             interval = setInterval(updateCountDown, 1000);
          +  updateCountDown();
