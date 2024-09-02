@@ -226,9 +226,9 @@ async function predictWebcam() {
         lineWidth: 2
       });
 
-      if ( index == 8){
-      startX = landmarks[0]
-      startY = landmarks[1]
+      if ( index == 0){
+      startX = landmarks[8].x
+      startY = landmarks[8].y
       }
       index++
     }
