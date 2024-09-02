@@ -227,8 +227,8 @@ async function predictWebcam() {
       });
 
       if ( index == 0){
-      startX = landmarks[8].x
-      startY = landmarks[8].y
+      startX = landmarks[8].x * video.width
+      startY = landmarks[8].y * video.height
       }
       index++
     }
