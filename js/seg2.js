@@ -251,6 +251,11 @@ async function predictWebcam() {
    
       if (i == 0){
         gestureOutput.innerText = `[${i}] ${categoryName}:  ${handedness}`;
+        if (categoryName === "Pointing Up" ){
+          targetTime = new Date().getTime() + 5500; 
+          interval = setInterval(updateCountDown, 1000);
+       +  updateCountDown();
+        }
       } else{
         gestureOutput.innerText += `,[${i}] ${categoryName}:  ${handedness}`;
       }
@@ -278,39 +283,66 @@ window.addEventListener('mediarecorder-previewclosed', () => {
 })
 
 
-const picture = document.querySelector("#picture")
+//撮影
+const picture = document.querySelector("#picture");
+const countDown = document.getElementById('countdown'); 
+const se = document.querySelector('#se');
+let targetTime;
+let interval; 
+
+function updateCountDown(){
+
+  const now = new Date().getTime();
+  const distance = targetTime - now;
+
+  //const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  //const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("save").textContent = seconds;
+  if(seconds <= 0){
+   clearInterval(interval);
+   saveImage(); 
+  }
+}
 /**
    * シャッターボタン
-   */
-   document.querySelector("#save").addEventListener("click", () => {
+ */
+document.querySelector("#save").addEventListener("click", () => {
+   targetTime = new Date().getTime() + 5500; 
+   interval = setInterval(updateCountDown, 1000);
++  updateCountDown();
+})
+
+function saveImage(){
+  // SEを再生する
+  video.pause()  
+  se.play()      
+  setTimeout( () => {
+    video.play()    
+  }, 500);
+
+
     const ctx = picture.getContext("2d")
-      picture.width = video.height
-      picture.height = video.width
+    picture.width = video.height
+    picture.height = video.width
 
-    // 演出的な目的で一度映像を止めてSEを再生する
-    video.pause()  // 映像を停止
-    //se.play()      // シャッター音
-    setTimeout( () => {
-      video.play()    // 0.5秒後にカメラ再開
-    }, 500);
+  // canvasに画像を貼り付ける
+  ctx.drawImage(video, 0, 0, picture.width, picture.height);
+  ctx.drawImage(canvasElement, 0, 0, picture.width, picture.height);
+  ctx.drawImage(maskElement, 0, 0, picture.width, picture.height);
 
-    // canvasに画像を貼り付ける
-    ctx.drawImage(video, 0, 0, picture.width, picture.height);
-    ctx.drawImage(canvasElement, 0, 0, picture.width, picture.height);
-    ctx.drawImage(maskElement, 0, 0, picture.width, picture.height);
+  var base64Image = document.getElementById('picture').toDataURL()
+resizeImage(base64Image, function(base64) {
 
-    var base64Image = document.getElementById('picture').toDataURL()
-  resizeImage(base64Image, function(base64) {
- 
-    var object = {
-        //"url": dataUrl
-        "url": base64Image
-    }
-    var result = prompt(JSON.stringify(object))
-  })
-  return false
-  })
-
+  var object = {
+      //"url": dataUrl
+      "url": base64Image
+  }
+  var result = prompt(JSON.stringify(object))
+})
+return false
+}
 
 /**
  * 画像のリサイズ
@@ -319,7 +351,7 @@ const picture = document.querySelector("#picture")
  * @return {string}            [base64]
  */
 const resizeImage = function(base64, callback) {
-    const MIN_SIZE = 800;
+    const MIN_SIZE = 400;
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
     var image = new Image();
@@ -361,20 +393,3 @@ function base64toBlob(base64) {
   }
   return blob;
 }
-/*
-document.getElementById('save').addEventListener('click', function() {
-  var base64Image = document.getElementById('picture').toDataURL()
-  resizeImage(base64Image, function(base64) {
-    var blob = base64toBlob(base64Image)
-    var url = (window.URL || window.webkitURL);
-    var dataUrl = url.createObjectURL(blob)
- 
-    var object = {
-        //"url": dataUrl
-        "url": base64Image
-    }
-    var result = prompt(JSON.stringify(object))
-  })
-  return false
-})
-*/
