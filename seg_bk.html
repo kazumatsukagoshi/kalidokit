@@ -40,18 +40,9 @@ crossorigin="anonymous"
   crossorigin="anonymous" type = "module"
 ></script>
 
-  <!-- CreateJSのライブラリー読み込み -->
-  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-
-  <!-- パーティクルシステムのライブラリー読み込み -->
-  <script src="js/particlejs.min.js"></script>
-
 
 </head>
 <body>
-  <audio id="se" preload="auto">
-    <source src="Camera-Film01-1.mp3" type="audio/mp3">
-  </audio>
 <div id= "preview" class="preview" >
   <video id="webcam" class="input_video"  autoplay muted playsinline></video>
   <canvas id="view" class="guides"></canvas>
@@ -65,6 +56,6 @@ crossorigin="anonymous"
 <canvas id="picture" width="720" height="720" ></canvas>
 
   
-  <script type="module" src="js/seg2.js"></script>
+  <script type="module" src="js/seg.js"></script>
   
 </body>
