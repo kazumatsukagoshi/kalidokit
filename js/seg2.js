@@ -57,11 +57,6 @@ let startX = 0;
 let startY = 0;
 //  ウィンドウのロードが終わり次第、初期化コードを呼び出す。
 window.addEventListener('load', function () {
-   // Activate the webcam stream.
- navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-  video.srcObject = stream;
-  video.addEventListener("loadeddata", predictWebcam);
-});
 
   // Stageオブジェクトを作成します。表示リストのルートになります。
   stage = new createjs.Stage('mask_canvas');
@@ -124,6 +119,13 @@ window.addEventListener('load', function () {
   createjs.Ticker.timingMode = createjs.Ticker.RAF;
   // 定期的に呼ばれる関数を登録
   createjs.Ticker.addEventListener('tick', handleTick);
+
+         // Activate the webcam stream.
+ navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+  video.srcObject = stream;
+  video.addEventListener("loadeddata", predictWebcam);
+});
+
 });
 
 function handleTick() {
