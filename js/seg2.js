@@ -309,9 +309,11 @@ function updateCountDown(){
    * シャッターボタン
  */
 document.querySelector("#save").addEventListener("click", () => {
+  if (!interval){
    targetTime = new Date().getTime() + 5500; 
    interval = setInterval(updateCountDown, 1000);
 +  updateCountDown();
+  }
 })
 
 function saveImage(){
