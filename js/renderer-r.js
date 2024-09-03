@@ -233,7 +233,7 @@ let faceLandmarker;
 let video;
 const scene = new BasicScene();
 //const avatar = new Avatar("https://assets.codepen.io/9177687/raccoon_head.glb", scene.scene);
-const avatar = new Avatar("../colapsed.glb", scene.scene);
+const avatar = new Avatar("https://kazumatsukagoshi.github.io/kldkt/colapsed.glb", scene.scene);
 function detectFaceLandmarks(time) {
     if (!faceLandmarker) {
         return;
