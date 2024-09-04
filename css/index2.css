@@ -78,7 +78,14 @@ canvas {
     width: 100%;
     z-index: 1;
 }
-
+.mask_canvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+    z-index: 2;
+}
 .save {
     position: relative;
     z-index: 9;
