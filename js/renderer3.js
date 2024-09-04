@@ -75,14 +75,14 @@ function startCamera() {
   navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
             videoElement.srcObject = stream;
             localStream = stream;
+            maskElement.width = videoElement.videoWidth;
+            maskElement.height = videoElement.videoHeight;
             videoElement.requestVideoFrameCallback(onVideoFrame);
             animate()
   }).catch(function (err) {
       console.error(err);
   });
 
-    maskElement.width = videoElement.videoWidth;
-    maskElement.height = videoElement.videoHeight;
 
 }
 
