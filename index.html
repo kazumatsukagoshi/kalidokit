@@ -40,6 +40,12 @@ crossorigin="anonymous"
 
 </head>
 <body>
+    <!-- CreateJSのライブラリー読み込み -->
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+
+    <!-- パーティクルシステムのライブラリー読み込み -->
+    <script src="js/particlejs.min.js"></script>
+  
   <audio id="se" preload="auto">
     <source src="Camera-Film01-1.mp3" type="audio/mp3">
   </audio>
@@ -50,7 +56,8 @@ crossorigin="anonymous"
 <div id= "preview" class="preview">
   <video id="webcam" class="input_video"  autoplay muted playsinline></video>
   <canvas id="view" class="guides"></canvas>
-  <canvas class="output_canvas" id="output_canvas"  style="position: absolute; left: 0px; top: 0px;"></canvas>      
+  <canvas class="output_canvas" id="output_canvas"  style="position: absolute; left: 0px; top: 0px;"></canvas>
+  <canvas class="mask_canvas" id="mask_canvas"  style="position: absolute; left: 0px; top: 0px;"></canvas>         
 </div>
 <form>
     <button type="button" id="save" class="save">保存</button>
@@ -60,6 +67,6 @@ crossorigin="anonymous"
 </p>
 <canvas id="picture" width="840" height="1260" ></canvas>
 
-  <script src="js/renderer2.js"></script>
+  <script src="js/renderer3.js"></script>
   
 </body>
