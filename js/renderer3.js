@@ -4,6 +4,9 @@ let videoElement = document.querySelector(".input_video"),
     maskElement = document.querySelector("canvas.mask_canvas"),
     localStream;
 
+    maskElement.width = 840;
+    maskElement.height = 1260;
+
 window.onload = function() {
 
   option = {video: true};
