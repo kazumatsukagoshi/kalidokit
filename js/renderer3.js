@@ -4,9 +4,6 @@ let videoElement = document.querySelector(".input_video"),
     maskElement = document.querySelector("canvas.mask_canvas"),
     localStream;
 
-    maskElement.width = 1260;
-    maskElement.height = 840;
-
 window.onload = function() {
 
   option = {video: true};
@@ -81,6 +78,8 @@ function startCamera() {
       console.error(err);
   });
 
+    maskElement.width = videoElement.videoWidth;
+    maskElement.height = videoElement.videoHeight;
 
 }
 
@@ -595,7 +594,7 @@ picture.height = videoElement.videoHeight
  // canvasに画像を貼り付ける
 ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
 ctx.drawImage(guideCanvas, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
-//ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
+ctx.drawImage(maskElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight)
 
 const base64Image = document.getElementById('picture').toDataURL()
 resizeImage(base64Image, (base64) => {
