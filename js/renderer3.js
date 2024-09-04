@@ -176,7 +176,7 @@ window.addEventListener('load', function () {
   );
 
   // フレームレートの設定
-  createjs.Ticker.framerate = 60;
+  createjs.Ticker.framerate = 30;
   // requestAnimationFrameに従った呼び出し
   createjs.Ticker.timingMode = createjs.Ticker.RAF;
   // 定期的に呼ばれる関数を登録
